@@ -11,4 +11,13 @@
 }
 .task-item {
   width: 350px;
+  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  cursor: pointer;
+  outline: none;
+
+  &:hover, &:focus {
+    background: lightskyblue !important;
+    border-left-color: #8e24aa !important; // Even deeper purple on hover/focus
+    box-shadow: 0 8px 24px 0 rgba(186,104,200, 0.13), 0 1.5px 8px 0 rgba(0,0,0,0.10);
+  }
 }
