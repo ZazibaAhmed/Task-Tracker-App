@@ -1,1 +1,29 @@
-<p>task-details works!</p>
+<ng-container *ngIf="task; else notFound">
+  <mat-card>
+    <mat-card-title>
+      {{ task.title }}
+      <button mat-icon-button color="primary" (click)="openEditDialog()" aria-label="Edit Task">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-title>
+    <mat-card-content>
+      <p><strong>Status:</strong> {{ task.status }}</p>
+      <p><strong>Description:</strong> {{ task.description || 'No description.' }}</p>
+<!--      <p><strong>Due Date:</strong> {{ task.dueDate | dueDateFormat }}</p>-->
+      <p><strong>Category:</strong> {{ task.category }}</p>
+      <p>
+        <strong>Tags:</strong>
+        <span *ngIf="task.tags?.length; else noTags">
+          <mat-chip-set>
+            <mat-chip *ngFor="let tag of task.tags">{{ tag }}</mat-chip>
+          </mat-chip-set>
+        </span>
+        <ng-template #noTags>None</ng-template>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<ng-template #notFound>
+  <p>Task not found.</p>
+</ng-template>
+
