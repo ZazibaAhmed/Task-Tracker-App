@@ -10,6 +10,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskDetailsComponent } from './components/task-details/task-details.component';
 import { ArchivedTasksComponent } from './components/archived-tasks/archived-tasks.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TaskFormComponent } from './shared/task-form/task-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     TaskListComponent,
     TaskDetailsComponent,
     ArchivedTasksComponent,
-    NavbarComponent
+    NavbarComponent,
+    TaskFormComponent
   ],
   imports: [
     BrowserModule,
