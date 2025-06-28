@@ -4,15 +4,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
+import { ArchivedTasksComponent } from './components/archived-tasks/archived-tasks.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskListComponent,
+    TaskDetailsComponent,
+    ArchivedTasksComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
