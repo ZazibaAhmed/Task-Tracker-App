@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskCategory, TaskStatus } from '../../models/task';
 import {dueDateValidator} from "../../validators/due-date.validator";
+import {TagService} from "../../services/tag.service";
+import {tagsValidator} from "../../validators/tags.validator";
 
 export interface TaskFormData {
   task?: Task;
@@ -18,16 +20,20 @@ export class TaskFormComponent implements OnInit {
   categories: TaskCategory[] = ['Work', 'Personal', 'Urgent', 'Other'];
   statuses: TaskStatus[] = ['To Do', 'In Progress', 'Done'];
   isEdit = false;
+  availableTags: string[] = [];
+  tagsLoadFailed = false;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TaskFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: TaskFormData
+    @Inject(MAT_DIALOG_DATA) public data: TaskFormData,
+    private tagService: TagService,
   ) {}
 
   ngOnInit() {
     this.isEdit = !!this.data?.isEdit;
     this.initializeTaskForm();
+    this.loadTags();
 
   }
 
@@ -40,7 +46,17 @@ export class TaskFormComponent implements OnInit {
       status: [t?.status || 'To Do', Validators.required],
       dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
-      tags: [t?.tags || []]
+      tags: [t?.tags || [], tagsValidator()],
+    });
+  }
+
+  loadTags(){
+    this.tagService.getTags().subscribe(tags => {
+      if (tags) {
+        this.availableTags = tags;
+      } else {
+        this.tagsLoadFailed = true;
+      }
     });
   }
 
