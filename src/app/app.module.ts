@@ -15,6 +15,7 @@ import { TaskFormComponent } from './shared/task-form/task-form.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { DueDateFormatPipe } from './pipes/due-date-format.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { OverdueHighlightDirective } from './directives/overdue-highlight.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     NavbarComponent,
     TaskFormComponent,
     DueDateFormatPipe,
-    TruncatePipe
+    TruncatePipe,
+    OverdueHighlightDirective,
   ],
   imports: [
     BrowserModule,

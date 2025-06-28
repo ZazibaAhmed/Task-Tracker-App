@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">Archived Tasks</mat-toolbar>
 <div *ngIf="archivedTasks.length; else noArchived">
   <mat-list>
-<!--    <mat-list-item *ngFor="let task of archivedTasks" appOverdueHighlight [dueDate]="task.dueDate">-->
-      <mat-list-item *ngFor="let task of archivedTasks">
+    <mat-list-item *ngFor="let task of archivedTasks"
+                   [appOverdueHighlight]="task.dueDate">
       <div>
         <strong>{{ task.title }}</strong>
         <span>{{ task.status }}</span>

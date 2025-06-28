@@ -6,6 +6,7 @@
 <div class="task-list">
   <mat-card *ngFor="let task of tasks" class="task-item"
             (click)="goToTaskDetail(task)"
+            [appOverdueHighlight]="task.dueDate"
             tabindex="0">
     <mat-card-title>{{ task.title }}</mat-card-title>
     <mat-card-content>
