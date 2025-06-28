@@ -12,7 +12,7 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { ArchivedTasksComponent } from './components/archived-tasks/archived-tasks.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TaskFormComponent } from './shared/task-form/task-form.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
   ],
   providers: [],

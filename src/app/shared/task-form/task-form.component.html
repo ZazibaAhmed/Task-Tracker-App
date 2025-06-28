@@ -60,21 +60,44 @@
     </mat-error>
   </mat-form-field>
 
-  <!-- Tags (API integration to be added) -->
+  <!-- Tags -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Tags</mat-label>
-    <!-- This is a placeholder for chips + autocomplete -->
-    <input matInput formControlName="tags" placeholder="Add tags (max 5)">
-    <mat-error *ngIf="taskForm.get('tags')?.hasError('maxTags')">
+    <mat-chip-grid #chipGrid>
+      <mat-chip
+        *ngFor="let ctrl of tagsFormArray.controls; let i = index"
+        [removable]="true"
+        (removed)="removeTag(i)"
+        [color]="ctrl.invalid ? 'warn' : undefined">
+        {{ ctrl.value }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        [formControl]="tagsInput"
+        placeholder="Add tag"
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="[13, 188]"
+        (matChipInputTokenEnd)="addTagFromInput($event)"
+        [matAutocomplete]="auto"
+      >
+    </mat-chip-grid>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectTag($event)">
+      <mat-option *ngFor="let tag of availableTags" [value]="tag">
+        {{ tag }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="tagsFormArray.hasError('maxTags')">
       Cannot add more than 5 tags.
     </mat-error>
-    <mat-error *ngIf="taskForm.get('tags')?.hasError('tagMinLength')">
-      Each tag must be at least 2 characters.
-    </mat-error>
-    <mat-error *ngIf="taskForm.get('tags')?.hasError('tagMaxLength')">
-      Each tag cannot exceed 20 characters.
-    </mat-error>
-<!--    <mat-hint *ngIf="tagsLoadFailed">Unable to load tags, please enter custom tags</mat-hint>-->
+<!--    <mat-error *ngIf="tagsFormArray.controls.some(ctrl => ctrl.hasError('minlength'))">-->
+<!--      Each tag must be at least 2 characters.-->
+<!--    </mat-error>-->
+<!--    <mat-error *ngIf="tagsFOrmArray.controls.some(ctrl => ctrl.hasError('maxlength'))">-->
+<!--      Each tag cannot exceed 20 characters.-->
+<!--    </mat-error>-->
+    <mat-hint *ngIf="tagsLoadFailed">Unable to load tags, please enter custom tags</mat-hint>
   </mat-form-field>
 
   <div mat-dialog-actions align="end">

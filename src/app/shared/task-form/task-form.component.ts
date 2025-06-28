@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskCategory, TaskStatus } from '../../models/task';
 import {dueDateValidator} from "../../validators/due-date.validator";
 import {TagService} from "../../services/tag.service";
-import {tagsValidator} from "../../validators/tags.validator";
+import {tagsValidator, tagsArrayValidator} from "../../validators/tags.validator";
 
 export interface TaskFormData {
   task?: Task;
@@ -22,6 +22,7 @@ export class TaskFormComponent implements OnInit {
   isEdit = false;
   availableTags: string[] = [];
   tagsLoadFailed = false;
+  tagsInput = new FormControl('');
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,8 @@ export class TaskFormComponent implements OnInit {
       status: [t?.status || 'To Do', Validators.required],
       dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
-      tags: [t?.tags || [], tagsValidator()],
+      // tags: [t?.tags || [], tagsValidator()],
+      tags: this.fb.array([], tagsArrayValidator)
     });
   }
 
@@ -58,6 +60,51 @@ export class TaskFormComponent implements OnInit {
         this.tagsLoadFailed = true;
       }
     });
+  }
+
+  get tagsFormArray(): FormArray {
+    return this.taskForm.get('tags') as FormArray;
+  }
+
+  createTagControl(tag: string): FormControl {
+    return new FormControl(tag, [
+      Validators.minLength(2),
+      Validators.maxLength(20)
+    ]);
+  }
+
+  addTagFromInput(event: any) {
+    const input = event.input;
+    const value = event.value?.trim();
+    if (
+      value &&
+      this.tagsFormArray.length < 5 &&
+      value.length >= 2 &&
+      value.length <= 20 &&
+      !this.tagsFormArray.value.includes(value)
+    ) {
+      this.tagsFormArray.push(this.createTagControl(value));
+    }
+    if (input) input.value = '';
+    this.tagsInput.setValue('');
+  }
+
+  removeTag(index: number) {
+    this.tagsFormArray.removeAt(index);
+  }
+
+  selectTag(event: any) {
+    const value = event.option.value;
+    if (
+      value &&
+      this.tagsFormArray.length < 5 &&
+      value.length >= 2 &&
+      value.length <= 20 &&
+      !this.tagsFormArray.value.includes(value)
+    ) {
+      this.tagsFormArray.push(this.createTagControl(value));
+    }
+    this.tagsInput.setValue('');
   }
 
   onSubmit() {

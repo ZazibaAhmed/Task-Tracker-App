@@ -1,4 +1,4 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 export function tagsValidator(): ValidatorFn {
   return (control: AbstractControl) => {
@@ -11,4 +11,13 @@ export function tagsValidator(): ValidatorFn {
     }
     return null;
   };
+}
+
+export function tagsArrayValidator(control: AbstractControl): ValidationErrors | null {
+  const arr = control.value as string[] | null;
+  if (!arr) return null;
+  if (arr.length > 5) {
+    return { maxTags: true };
+  }
+  return null;
 }
