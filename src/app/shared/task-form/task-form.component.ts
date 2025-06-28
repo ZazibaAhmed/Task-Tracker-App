@@ -40,6 +40,8 @@ export class TaskFormComponent implements OnInit {
 
   initializeTaskForm(){
     const t = this.data?.task;
+    // Prepare FormArray for tags, either empty or with existing tags (for edit)
+    const tagControls = (t?.tags || []).map(tag => this.createTagControl(tag));
 
     this.taskForm = this.fb.group({
       title: [t?.title || '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -48,13 +50,14 @@ export class TaskFormComponent implements OnInit {
       dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
       // tags: [t?.tags || [], tagsValidator()],
-      tags: this.fb.array([], tagsArrayValidator)
+      tags: this.fb.array(tagControls, tagsArrayValidator)
     });
   }
 
   loadTags(){
     this.tagService.getTags().subscribe(tags => {
       if (tags) {
+        console.log(tags);
         this.availableTags = tags;
       } else {
         this.tagsLoadFailed = true;
