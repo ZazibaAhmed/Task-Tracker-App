@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskCategory, TaskStatus } from '../../models/task';
+import {dueDateValidator} from "../../validators/due-date.validator";
 
 export interface TaskFormData {
   task?: Task;
@@ -26,13 +27,18 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit() {
     this.isEdit = !!this.data?.isEdit;
+    this.initializeTaskForm();
+
+  }
+
+  initializeTaskForm(){
     const t = this.data?.task;
 
     this.taskForm = this.fb.group({
       title: [t?.title || '', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: [t?.description || '', [Validators.maxLength(200)]],
       status: [t?.status || 'To Do', Validators.required],
-      dueDate: [t?.dueDate || ''],
+      dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
       tags: [t?.tags || []]
     });
