@@ -1,10 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskCategory, TaskStatus } from '../../models/task';
 import {dueDateValidator} from "../../validators/due-date.validator";
 import {TagService} from "../../services/tag.service";
 import {tagsValidator, tagsArrayValidator} from "../../validators/tags.validator";
+import {Subscription} from "rxjs";
 
 export interface TaskFormData {
   task?: Task;
@@ -15,7 +16,7 @@ export interface TaskFormData {
   selector: 'app-task-form',
   templateUrl: './task-form.component.html'
 })
-export class TaskFormComponent implements OnInit {
+export class TaskFormComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup;
   categories: TaskCategory[] = ['Work', 'Personal', 'Urgent', 'Other'];
   statuses: TaskStatus[] = ['To Do', 'In Progress', 'Done'];
@@ -23,6 +24,7 @@ export class TaskFormComponent implements OnInit {
   availableTags: string[] = [];
   tagsLoadFailed = false;
   tagsInput = new FormControl('');
+  private statusSub?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -35,7 +37,7 @@ export class TaskFormComponent implements OnInit {
     this.isEdit = !!this.data?.isEdit;
     this.initializeTaskForm();
     this.loadTags();
-
+    this.formControlDisableHandler();
   }
 
   initializeTaskForm(){
@@ -61,6 +63,41 @@ export class TaskFormComponent implements OnInit {
         this.availableTags = tags;
       } else {
         this.tagsLoadFailed = true;
+      }
+    });
+  }
+
+  // FIX
+  formControlDisableHandler(){
+    // Set initial disabled/enabled state after building the form
+    this.disableCompletedFieldsIfNeeded();
+
+    // Subscribe to changes of the status field
+    this.statusSub = this.taskForm.get('status')?.valueChanges.subscribe(() => {
+      this.disableCompletedFieldsIfNeeded();
+    });
+  }
+
+  disableCompletedFieldsIfNeeded() {
+    const isDone = this.isEdit && this.taskForm.get('status')?.value === 'Done';
+    // These form controls (except status) get toggled
+    const controlsToToggle = ['title', 'description', 'dueDate', 'category', 'tags'];
+
+    controlsToToggle.forEach(field => {
+      const control = this.taskForm.get(field);
+      if (!control) return;
+
+      if (isDone) {
+        control.disable({ emitEvent: false });
+        // For tags FormArray, also disable all child controls (each tag)
+        if (this.tagsInput) {
+          this.tagsInput.disable({ emitEvent: false })
+        }
+      } else {
+        control.enable({ emitEvent: false });
+        if (this.tagsInput) {
+          this.tagsInput.enable({ emitEvent: false });
+        }
       }
     });
   }
@@ -123,5 +160,11 @@ export class TaskFormComponent implements OnInit {
 
   onCancel() {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy() {
+    if (this.statusSub) {
+      this.statusSub.unsubscribe();
+    }
   }
 }

@@ -66,11 +66,11 @@
     <mat-chip-grid #chipGrid>
       <mat-chip
         *ngFor="let ctrl of tagsFormArray.controls; let i = index"
-        [removable]="true"
+        [removable]="!tagsInput.disabled"
         (removed)="removeTag(i)"
         [color]="ctrl.invalid ? 'warn' : undefined">
         {{ ctrl.value }}
-        <button matChipRemove>
+        <button matChipRemove [disabled]="tagsInput.disabled">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip>
@@ -81,6 +81,7 @@
         [matChipInputSeparatorKeyCodes]="[13, 188]"
         (matChipInputTokenEnd)="addTagFromInput($event)"
         [matAutocomplete]="auto"
+        [disabled]="tagsInput.disabled"
       >
     </mat-chip-grid>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectTag($event)">

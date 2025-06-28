@@ -15,7 +15,7 @@ export const DUMMY_TASKS: Task[] = [
     id: 2,
     title: 'Buy groceries',
     description: 'Milk, bread, eggs, and vegetables.',
-    status: 'To Do',
+    status: 'Done',
     dueDate: '2025-07-01',
     category: 'Personal',
     tags: ['Clementine Bauch'],

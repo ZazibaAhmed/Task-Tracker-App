@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {Task, TaskStatus} from "../models/task"
-import {MatDialog} from "@angular/material/dialog";
 import {DUMMY_TASKS} from "../shared/dummy-data";
 
 @Injectable({
