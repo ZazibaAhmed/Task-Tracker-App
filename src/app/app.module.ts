@@ -11,6 +11,7 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { ArchivedTasksComponent } from './components/archived-tasks/archived-tasks.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TaskFormComponent } from './shared/task-form/task-form.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TaskFormComponent } from './shared/task-form/task-form.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

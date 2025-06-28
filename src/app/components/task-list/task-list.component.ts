@@ -25,15 +25,15 @@ export class TaskListComponent implements OnInit {
   }
 
   openAddTaskDialog() {
-    // const dialogRef = this.dialog.open(TaskFormComponent, {
-    //   width: '400px',
-    //   data: { isEdit: false }
-    // });
-    // dialogRef.afterClosed().subscribe((result: Task) => {
-    //   if (result) {
-    //     this.taskService.addTask(result);
-    //   }
-    // });
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      width: '400px',
+      data: { isEdit: false }
+    });
+    dialogRef.afterClosed().subscribe((result: Task) => {
+      if (result) {
+        this.taskService.addTask(result);
+      }
+    });
   }
 
   editTask(task: Task) {

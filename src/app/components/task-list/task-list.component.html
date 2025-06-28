@@ -1,9 +1,8 @@
-<mat-card>
-  <div class="header">
+<div class="header">
     <h2>Tasks</h2>
     <button mat-raised-button color="primary" (click)="openAddTaskDialog()">+ Add Task</button>
-  </div>
-</mat-card>
+</div>
+
 <div class="task-list">
   <mat-card *ngFor="let task of tasks" class="task-item">
     <mat-card-title>{{ task.title }}</mat-card-title>
