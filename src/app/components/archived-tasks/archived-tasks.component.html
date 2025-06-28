@@ -6,7 +6,7 @@
       <div>
         <strong>{{ task.title }}</strong>
         <span>{{ task.status }}</span>
-<!--        <span>{{ task.dueDate | dueDateFormat }}</span>-->
+        <span>{{ task.dueDate | dueDateFormat }}</span>
         <button mat-button color="accent" (click)="restoreTask(task)">Restore</button>
       </div>
     </mat-list-item>

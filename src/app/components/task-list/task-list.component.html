@@ -10,7 +10,7 @@
     <mat-card-title>{{ task.title }}</mat-card-title>
     <mat-card-content>
       <div>Status: {{ task.status }}</div>
-      <div>Due: {{ task.dueDate || 'No Due Date' }}</div>
+      <div>Due: {{ task.dueDate | dueDateFormat }}</div>
       <div>Category: {{ task.category }}</div>
       <div>
         Tags:
