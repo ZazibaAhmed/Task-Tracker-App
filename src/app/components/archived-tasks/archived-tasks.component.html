@@ -1,1 +1,19 @@
-<p>archived-tasks works!</p>
+<mat-toolbar color="primary">Archived Tasks</mat-toolbar>
+<div *ngIf="archivedTasks.length; else noArchived">
+  <mat-list>
+<!--    <mat-list-item *ngFor="let task of archivedTasks" appOverdueHighlight [dueDate]="task.dueDate">-->
+      <mat-list-item *ngFor="let task of archivedTasks">
+      <div>
+        <strong>{{ task.title }}</strong>
+        <span>{{ task.status }}</span>
+<!--        <span>{{ task.dueDate | dueDateFormat }}</span>-->
+        <button mat-button color="accent" (click)="restoreTask(task)">Restore</button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+<ng-template #noArchived>
+  <p>No archived tasks.</p>
+</ng-template>
+
+
