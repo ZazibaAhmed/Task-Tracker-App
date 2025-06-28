@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TaskFormComponent } from './shared/task-form/task-form.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { DueDateFormatPipe } from './pipes/due-date-format.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DueDateFormatPipe } from './pipes/due-date-format.pipe';
     ArchivedTasksComponent,
     NavbarComponent,
     TaskFormComponent,
-    DueDateFormatPipe
+    DueDateFormatPipe,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

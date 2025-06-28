@@ -18,7 +18,7 @@
 <!--          <mat-chip *ngFor="let tag of task.tags">{{ tag }}</mat-chip>-->
 <!--        </mat-chip-list>-->
       </div>
-      <div>Description: {{ task.description || '-' }}</div>
+      <div>Description: {{ task.description | truncate:50  }}</div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="accent" (click)="editTask(task)">Edit</button>
