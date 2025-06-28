@@ -37,7 +37,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.isEdit = !!this.data?.isEdit;
     this.initializeTaskForm();
     this.loadTags();
-    this.formControlDisableHandler();
+    // this.formControlDisableHandler();
   }
 
   initializeTaskForm(){
@@ -51,7 +51,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       status: [t?.status || 'To Do', Validators.required],
       dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
-      // tags: [t?.tags || [], tagsValidator()],
       tags: this.fb.array(tagControls, tagsArrayValidator)
     });
   }
