@@ -16,7 +16,7 @@ export const DUMMY_TASKS: Task[] = [
     id: 2,
     title: 'Buy groceries',
     description: 'Milk, bread, eggs, fruits, and vegetables.',
-    status: 'To Do',
+    status: 'Done',
     dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10), // 5 days from now
     category: 'Personal',
     tags: ['Ervin Howell'],

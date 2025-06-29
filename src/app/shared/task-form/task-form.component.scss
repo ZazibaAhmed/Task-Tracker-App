@@ -47,6 +47,10 @@
   width: 100%;
 }
 
+.readonly-style, .readonly-style *{
+  cursor: not-allowed !important;
+}
+
 /* Responsive: Stack fields on mobile */
 @media (max-width: 600px) {
   .grid-form {

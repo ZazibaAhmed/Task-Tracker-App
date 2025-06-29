@@ -38,10 +38,9 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.isEdit = !!this.data?.isEdit;
     this.initializeTaskForm();
     this.loadTags();
-    // this.formControlDisableHandler();
+    this.formControlDisableHandler();
   }
 
-  // FIX add createdAT
   initializeTaskForm(){
     const t = this.data?.task;
     // Prepare FormArray for tags, either empty or with existing tags (for edit)
@@ -69,7 +68,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  // FIX
   formControlDisableHandler(){
     // Set initial disabled/enabled state after building the form
     this.disableCompletedFieldsIfNeeded();
@@ -83,7 +81,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   disableCompletedFieldsIfNeeded() {
     const isDone = this.isEdit && this.taskForm.get('status')?.value === 'Done';
     // These form controls (except status) get toggled
-    const controlsToToggle = ['title', 'description', 'dueDate', 'category', 'tags'];
+    const controlsToToggle = ['title', 'description', 'dueDate', 'category', 'tags', 'priority'];
 
     controlsToToggle.forEach(field => {
       const control = this.taskForm.get(field);
@@ -102,6 +100,10 @@ export class TaskFormComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  get isReadOnly() {
+    return this.isEdit && this.taskForm.get('status')?.value === 'Done';
   }
 
   get tagsFormArray(): FormArray {
@@ -127,9 +129,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
     if (input) input.value = '';
     this.tagsInput.setValue('');
-
-    console.log(this.tagsFormArray);
-    console.log(this.tagsFormArray.hasError('tagMinLength'));
   }
 
   selectTag(event: any) {
@@ -145,36 +144,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   removeTag(index: number) {
     this.tagsFormArray.removeAt(index);
   }
-
-  // addTagFromInput(event: any) {
-  //   const input = event.input;
-  //   const value = event.value?.trim();
-  //   if (
-  //     value &&
-  //     this.tagsFormArray.length < 5 &&
-  //     value.length >= 2 &&
-  //     value.length <= 20 &&
-  //     !this.tagsFormArray.value.includes(value)
-  //   ) {
-  //     this.tagsFormArray.push(this.createTagControl(value));
-  //   }
-  //   if (input) input.value = '';
-  //   this.tagsInput.setValue('');
-  // }
-  //
-  // selectTag(event: any) {
-  //   const value = event.option.value;
-  //   if (
-  //     value &&
-  //     this.tagsFormArray.length < 5 &&
-  //     value.length >= 2 &&
-  //     value.length <= 20 &&
-  //     !this.tagsFormArray.value.includes(value)
-  //   ) {
-  //     this.tagsFormArray.push(this.createTagControl(value));
-  //   }
-  //   this.tagsInput.setValue('');
-  // }
 
   onSubmit() {
     if (this.taskForm.valid) {

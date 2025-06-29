@@ -2,7 +2,7 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form-root">
   <div class="scroll-container">
     <!-- Title -->
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="full-width" [ngClass]="{ 'readonly-style': isReadOnly }">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title" required>
       <mat-error *ngIf="taskForm.get('title')?.hasError('required') && (taskForm.get('title')?.touched || taskForm.get('title')?.dirty)">
@@ -18,7 +18,7 @@
 
     <div class="grid-form">
       <!-- Category -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [ngClass]="{ 'readonly-style': isReadOnly }">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category" required>
           <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
@@ -29,7 +29,7 @@
       </mat-form-field>
 
       <!-- Status -->
-      <mat-form-field appearance="outline" >
+      <mat-form-field appearance="outline">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status" required>
           <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
@@ -40,7 +40,7 @@
       </mat-form-field>
 
       <!-- Priority -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [ngClass]="{ 'readonly-style': isReadOnly }">
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
           <mat-option value="High">High</mat-option>
@@ -50,7 +50,7 @@
       </mat-form-field>
 
       <!-- Due Date -->
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" [ngClass]="{ 'readonly-style': isReadOnly }">
         <mat-label>Due Date</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dueDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -67,7 +67,7 @@
 
     <!-- Full-width: Description -->
     <!-- Tags -->
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="full-width" [ngClass]="{ 'readonly-style': isReadOnly }">
       <mat-label>Tags</mat-label>
       <mat-chip-grid #chipGrid>
         <mat-chip
@@ -87,6 +87,7 @@
           [matChipInputSeparatorKeyCodes]="[13, 188]"
           (matChipInputTokenEnd)="addTagFromInput($event)"
           [matAutocomplete]="auto"
+          [readOnly]="isReadOnly"
         >
       </mat-chip-grid>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectTag($event)">
@@ -107,7 +108,7 @@
     </mat-error>
 
     <!-- Description -->
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="full-width" [ngClass]="{ 'readonly-style': isReadOnly }">
       <mat-label>Description</mat-label>
       <textarea matInput formControlName="description" rows="2"></textarea>
       <mat-error *ngIf="taskForm.get('description')?.hasError('maxlength')">
