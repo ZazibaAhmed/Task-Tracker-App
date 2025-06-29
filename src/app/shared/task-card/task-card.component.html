@@ -22,7 +22,7 @@
     <ng-container *ngIf="!task.archived">
       <div>
         <button mat-flat-button color="primary" (click)="goToTaskDetail(task)">Details</button>
-        <button mat-stroked-button (click)="archiveTask(task)">Archive</button>
+        <button *ngIf="task.status==='Done'" mat-stroked-button (click)="archiveTask(task)">Archive</button>
       </div>
     </ng-container>
 
