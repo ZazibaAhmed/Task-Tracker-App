@@ -1,5 +1,13 @@
 <div class="header">
     <h2>Tasks</h2>
+  <div class="sort-buttons">
+    <button mat-stroked-button (click)="onSortByPriority()" [disabled]="sortBy === 'priority'">
+      Sort by Priority
+    </button>
+    <button mat-stroked-button (click)="onSortByDate()" [disabled]="sortBy === 'date'">
+      Sort by Creation Date
+    </button>
+  </div>
     <button mat-raised-button color="primary" (click)="openAddTaskDialog()">+ Add Task</button>
 </div>
 

@@ -20,8 +20,11 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.taskService.tasks$.subscribe(tasks =>
-      this.tasks = tasks.filter(t => !t.archived)
+    // this.taskService.tasks$.subscribe(tasks =>
+    //   this.tasks = tasks.filter(t => !t.archived)
+    // );
+    this.taskService.sortedTasks$.subscribe(tasks =>
+      this.tasks = tasks
     );
     console.log(this.tasks);
   }
@@ -52,6 +55,18 @@ export class TaskListComponent implements OnInit {
 
   goToTaskDetail(task: Task) {
     this.router.navigate(['/task', task.id]);
+  }
+
+  get sortBy() {
+    return this.taskService.sortBy;
+  }
+
+  onSortByPriority() {
+    this.taskService.sortBy = 'priority';
+  }
+
+  onSortByDate() {
+    this.taskService.sortBy = 'date';
   }
 
   priorityClass(priority: 'High' | 'Medium' | 'Low'): string {

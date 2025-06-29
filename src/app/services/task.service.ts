@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, combineLatest, map, Observable} from "rxjs";
 import {Task, TaskStatus} from "../models/task"
 import {DUMMY_TASKS} from "../shared/dummy-data";
 
@@ -10,18 +10,48 @@ export class TaskService {
 
   constructor() {}
 
-  // private tasksSubject = new BehaviorSubject<Task[]>([]);
+  // private tasksSubject = new BehaviorSubject<Task[]>([]); // FIX
   private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
   private idCounter = 1;
   private previousStatusMap = new Map<number, TaskStatus>();
+  private sortBySubject = new BehaviorSubject<'priority' | 'date'>('priority');
+  private priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
 
-  get tasks$(): Observable<Task[]> {
-    return this.tasksSubject.asObservable();
+  // Observable of only non-archived, sorted tasks
+  public readonly sortedTasks$: Observable<Task[]> = combineLatest([
+    this.tasksSubject.asObservable(),
+    this.sortBySubject.asObservable()
+  ]).pipe(
+    map(([tasks, sortBy]) => {
+      const filtered = tasks.filter(t => !t.archived);
+      if (sortBy === 'priority') {
+        return [...filtered].sort((a, b) => {
+          const diff = this.priorityOrder[a.priority] - this.priorityOrder[b.priority];
+          if (diff !== 0) return diff;
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+      } else {
+        return [...filtered].sort((a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+      }
+    })
+  );
+
+  get sortBy(): 'priority' | 'date' {
+    return this.sortBySubject.value;
+  }
+  set sortBy(val: 'priority' | 'date') {
+    this.sortBySubject.next(val);
   }
 
   addTask(task: Task) {
     task.id = this.idCounter++;
     this.tasksSubject.next([...this.tasksSubject.value, task]);
+  }
+
+  get tasks$(): Observable<Task[]> {
+    return this.tasksSubject.asObservable();
   }
 
   updateTask(updated: Task) {
@@ -66,6 +96,5 @@ export class TaskService {
       this.previousStatusMap.delete(id); // Clean up
     }
   }
-
 
 }
