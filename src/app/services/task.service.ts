@@ -49,6 +49,7 @@ export class TaskService {
 
   addTask(task: Task) {
     task.id = this.idCounter++;
+    task.createdAt = new Date();
     this.tasksSubject.next([...this.tasksSubject.value, task]);
   }
 
