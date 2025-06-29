@@ -17,6 +17,16 @@
   padding: 12px;
 }
 
+.no-tasks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  font-size: 1.15rem;
+  color: #888;
+}
+
 // ========== Responsive ==========
 @media (max-width: 600px) {
   .task-list-grid {

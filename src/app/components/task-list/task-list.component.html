@@ -12,10 +12,18 @@
     <button mat-raised-button color="primary" (click)="openAddTaskDialog()">+ Add Task</button>
   </div>
 
-  <div class="task-list-grid">
-    <app-task-card *ngFor="let task of tasks; let i = index"
-        [task]="task"
-        [index]="i">
-    </app-task-card>
-  </div>
+  <ng-container *ngIf="tasks.length; else noTasks">
+    <div class="task-list-grid">
+      <app-task-card *ngFor="let task of tasks; let i = index"
+                     [task]="task"
+                     [index]="i">
+      </app-task-card>
+    </div>
+  </ng-container>
+
+  <ng-template #noTasks>
+    <div class="no-tasks">
+      No Tasks.
+    </div>
+  </ng-template>
 </div>
