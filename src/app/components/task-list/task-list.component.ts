@@ -41,10 +41,6 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  editTask(task: Task) {
-    // Implement: open dialog in edit mode or navigate to /task/:id
-  }
-
   deleteTask(task: Task) {
     this.taskService.deleteTask(task.id);
   }
@@ -61,12 +57,8 @@ export class TaskListComponent implements OnInit {
     return this.taskService.sortBy;
   }
 
-  onSortByPriority() {
-    this.taskService.sortBy = 'priority';
-  }
-
-  onSortByDate() {
-    this.taskService.sortBy = 'date';
+  onSortChange(value: 'priority' | 'date') {
+    this.taskService.sortBy = value;
   }
 
   priorityClass(priority: 'High' | 'Medium' | 'Low'): string {

@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", Arial, sans-serif; }
+
+$my-primary: mat.define-palette(mat.$teal-palette, 700);
+$my-accent: mat.define-palette(mat.$green-palette, 200);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  )
+));
+
+@include mat.all-component-themes($my-theme);
+@include mat.core();
+@include mat.all-component-typographies($my-theme);

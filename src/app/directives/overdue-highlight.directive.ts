@@ -13,11 +13,11 @@ export class OverdueHighlightDirective implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isOverdue(this.appOverdueHighlight)) {
-      this.renderer.setStyle(this.el.nativeElement, 'border', '2px solid red');
-      // or use 'backgroundColor', 'rgba(255,0,0,0.1)' for a light red background
+      this.renderer.setStyle(this.el.nativeElement, 'border', '2px solid #B22234');
+      this.renderer.setStyle(this.el.nativeElement, 'backgroundColor', 'rgba(178, 34, 52, 0.12)');
     } else {
       this.renderer.removeStyle(this.el.nativeElement, 'border');
-      // and remove background if you add one
+      this.renderer.removeStyle(this.el.nativeElement, 'backgroundColor');
     }
   }
 

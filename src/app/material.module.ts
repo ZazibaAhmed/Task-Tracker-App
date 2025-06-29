@@ -14,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatListModule } from "@angular/material/list";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatListModule } from "@angular/material/list";
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatListModule
+    MatListModule,
+    MatButtonToggleModule
   ]
 })
 export class MaterialModule {}
