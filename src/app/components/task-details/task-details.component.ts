@@ -29,13 +29,14 @@ export class TaskDetailsComponent implements OnInit {
   openEditDialog() {
     if (!this.task) return;
     const dialogRef = this.dialog.open(TaskFormComponent, {
-      width: '500px',
+      width: '600px',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
       data: { task: this.task, isEdit: true }
     });
     dialogRef.afterClosed().subscribe((result: Task | undefined) => {
       if (result) {
         this.taskService.updateTask(result);
-        // Optionally, you can refresh or update the local task:
         this.task = result;
       }
     });
