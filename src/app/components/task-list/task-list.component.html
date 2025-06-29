@@ -17,32 +17,29 @@
               (click)="goToTaskDetail(task)"
               [appOverdueHighlight]="task.dueDate"
               tabindex="0">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <mat-card-title>{{ i+1 + ") " + task.title }}</mat-card-title>
-        <button mat-icon-button color="warn"
-                (click)="deleteTask(task)" matTooltip="Delete Task">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
 
-      <mat-card-content>
+      <div class="actions-spaced">
+        <mat-card-title>{{ i+1 + ") " + task.title }}</mat-card-title>
         <mat-chip [ngClass]="priorityClass(task.priority)">
           {{ task.priority }}
         </mat-chip>
-        <div>Status: {{ task.status }}</div>
-        <div>Due: {{ task.dueDate | dueDateFormat }}</div>
-        <div>Category: {{ task.category }}</div>
-        <div>
-          Tags:
-          <!--        <mat-chip-list>-->
-          <!--          <mat-chip *ngFor="let tag of task.tags">{{ tag }}</mat-chip>-->
-          <!--        </mat-chip-list>-->
-        </div>
-        <div>Description: {{ task.description | truncate:50  }}</div>
+      </div>
+
+      <mat-card-content>
+        <div><b>Description</b>: {{ task.description | truncate:50  }}</div>
+        <div><b>Status</b>:{{ task.status }}</div>
+        <div><b>Due</b>: {{ task.dueDate | dueDateFormat }}</div>
+        <div><b>Category</b>: {{ task.category }}</div>
+        <div><b>Tags</b>: {{ task.tags?.join(', ') }}</div>
       </mat-card-content>
-      <mat-card-actions>
+
+      <mat-card-actions class="actions-spaced">
         <button mat-button (click)="archiveTask(task)">Archive</button>
+        <button mat-icon-button color="warn" (click)="deleteTask(task)" matTooltip="Delete Task">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-card-actions>
+
     </mat-card>
   </div>
 </div>
