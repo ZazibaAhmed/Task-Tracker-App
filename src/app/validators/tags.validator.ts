@@ -1,23 +1,20 @@
 import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
-export function tagsValidator(): ValidatorFn {
-  return (control: AbstractControl) => {
-    const tags = control.value;
-    if (!tags) return null;
-    if (tags.length > 5) return { maxTags: true };
-    for (const tag of tags) {
-      if (tag.length < 2) return { tagMinLength: true };
-      if (tag.length > 20) return { tagMaxLength: true };
-    }
-    return null;
-  };
-}
+export const tagsArrayValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const tags = control.value as string[] | null;
+  if (!tags || tags.length === 0) return null; // Tags optional
 
-export function tagsArrayValidator(control: AbstractControl): ValidationErrors | null {
-  const arr = control.value as string[] | null;
-  if (!arr) return null;
-  if (arr.length > 5) {
-    return { maxTags: true };
+  const errors: ValidationErrors = {};
+
+  if (tags.length > 5) {
+    errors['maxTags'] = true;
   }
-  return null;
-}
+  // Tag length checks
+  const tooShort = tags.some(tag => tag.length < 2);
+  if (tooShort) errors['tagMinLength'] = true;
+
+  const tooLong = tags.some(tag => tag.length > 20);
+  if (tooLong) errors['tagMaxLength'] = true;
+
+  return Object.keys(errors).length ? errors : null;
+};

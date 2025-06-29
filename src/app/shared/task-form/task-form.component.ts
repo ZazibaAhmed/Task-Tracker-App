@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskCategory, TaskStatus } from '../../models/task';
 import {dueDateValidator} from "../../validators/due-date.validator";
 import {TagService} from "../../services/tag.service";
-import {tagsValidator, tagsArrayValidator} from "../../validators/tags.validator";
+import {tagsArrayValidator} from "../../validators/tags.validator";
 import {Subscription} from "rxjs";
 
 export interface TaskFormData {
@@ -115,16 +115,27 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   addTagFromInput(event: any) {
     const input = event.input;
     const value = event.value?.trim();
-    if (
-      value &&
-      this.tagsFormArray.length < 5 &&
-      value.length >= 2 &&
-      value.length <= 20 &&
-      !this.tagsFormArray.value.includes(value)
-    ) {
+
+    if (value && !this.tagsFormArray.value.includes(value)) {
       this.tagsFormArray.push(this.createTagControl(value));
     }
+    this.tagsFormArray.markAsTouched();
+    this.tagsFormArray.updateValueAndValidity();
+
     if (input) input.value = '';
+    this.tagsInput.setValue('');
+
+    console.log(this.tagsFormArray);
+    console.log(this.tagsFormArray.hasError('tagMinLength'));
+  }
+
+  selectTag(event: any) {
+    const value = event.option.value;
+    if (value && !this.tagsFormArray.value.includes(value)) {
+      this.tagsFormArray.push(this.createTagControl(value));
+    }
+    this.tagsFormArray.markAsTouched();
+    this.tagsFormArray.updateValueAndValidity();
     this.tagsInput.setValue('');
   }
 
@@ -132,19 +143,35 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     this.tagsFormArray.removeAt(index);
   }
 
-  selectTag(event: any) {
-    const value = event.option.value;
-    if (
-      value &&
-      this.tagsFormArray.length < 5 &&
-      value.length >= 2 &&
-      value.length <= 20 &&
-      !this.tagsFormArray.value.includes(value)
-    ) {
-      this.tagsFormArray.push(this.createTagControl(value));
-    }
-    this.tagsInput.setValue('');
-  }
+  // addTagFromInput(event: any) {
+  //   const input = event.input;
+  //   const value = event.value?.trim();
+  //   if (
+  //     value &&
+  //     this.tagsFormArray.length < 5 &&
+  //     value.length >= 2 &&
+  //     value.length <= 20 &&
+  //     !this.tagsFormArray.value.includes(value)
+  //   ) {
+  //     this.tagsFormArray.push(this.createTagControl(value));
+  //   }
+  //   if (input) input.value = '';
+  //   this.tagsInput.setValue('');
+  // }
+  //
+  // selectTag(event: any) {
+  //   const value = event.option.value;
+  //   if (
+  //     value &&
+  //     this.tagsFormArray.length < 5 &&
+  //     value.length >= 2 &&
+  //     value.length <= 20 &&
+  //     !this.tagsFormArray.value.includes(value)
+  //   ) {
+  //     this.tagsFormArray.push(this.createTagControl(value));
+  //   }
+  //   this.tagsInput.setValue('');
+  // }
 
   onSubmit() {
     if (this.taskForm.valid) {
