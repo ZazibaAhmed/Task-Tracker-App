@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task';
 import {TaskFormComponent} from "../../shared/task-form/task-form.component";
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -16,7 +15,6 @@ export class TaskListComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private dialog: MatDialog,
-    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,18 +39,6 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  deleteTask(task: Task) {
-    this.taskService.deleteTask(task.id);
-  }
-
-  archiveTask(task: Task) {
-    this.taskService.archiveTask(task.id);
-  }
-
-  goToTaskDetail(task: Task) {
-    this.router.navigate(['/task', task.id]);
-  }
-
   get sortBy() {
     return this.taskService.sortBy;
   }
@@ -61,12 +47,4 @@ export class TaskListComponent implements OnInit {
     this.taskService.sortBy = value;
   }
 
-  priorityClass(priority: 'High' | 'Medium' | 'Low'): string {
-    switch (priority) {
-      case 'High': return 'chip-high';
-      case 'Medium': return 'chip-medium';
-      case 'Low': return 'chip-low';
-      default: return '';
-    }
-  }
 }

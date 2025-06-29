@@ -13,33 +13,9 @@
   </div>
 
   <div class="task-list-grid">
-    <mat-card *ngFor="let task of tasks; let i = index" class="task-item"
-              (click)="goToTaskDetail(task)"
-              [appOverdueHighlight]="task.dueDate"
-              tabindex="0">
-
-      <div class="actions-spaced">
-        <mat-card-title>{{ i+1 + ") " + task.title }}</mat-card-title>
-        <mat-chip [ngClass]="priorityClass(task.priority)">
-          {{ task.priority }}
-        </mat-chip>
-      </div>
-
-      <mat-card-content>
-        <div><b>Description</b>: {{ task.description | truncate:50  }}</div>
-        <div><b>Status</b>:{{ task.status }}</div>
-        <div><b>Due</b>: {{ task.dueDate | dueDateFormat }}</div>
-        <div><b>Category</b>: {{ task.category }}</div>
-        <div><b>Tags</b>: {{ task.tags?.join(', ') }}</div>
-      </mat-card-content>
-
-      <mat-card-actions class="actions-spaced">
-        <button mat-button (click)="archiveTask(task)">Archive</button>
-        <button mat-icon-button color="warn" (click)="deleteTask(task)" matTooltip="Delete Task">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-card-actions>
-
-    </mat-card>
+    <app-task-card *ngFor="let task of tasks; let i = index"
+        [task]="task"
+        [index]="i">
+    </app-task-card>
   </div>
 </div>

@@ -1,0 +1,33 @@
+<mat-card class="task-item" [appOverdueHighlight]="task.dueDate" tabindex="0">
+  <div class="actions-spaced">
+    <mat-card-title>{{ index+1 + ") " + task.title }}</mat-card-title>
+    <mat-chip [ngClass]="priorityClass(task.priority)">
+      {{ task.priority }}
+    </mat-chip>
+  </div>
+
+  <mat-card-content>
+    <div><b>Description</b>: {{ task.description | truncate:50  }}</div>
+    <div><b>Status</b>:{{ task.status }}</div>
+    <div><b>Due</b>: {{ task.dueDate | dueDateFormat }}</div>
+    <div><b>Category</b>: {{ task.category }}</div>
+    <div><b>Tags</b>: {{ task.tags?.join(', ') }}</div>
+  </mat-card-content>
+
+  <mat-card-actions class="actions-spaced">
+    <!-- Only show Restore in archived mode -->
+    <button *ngIf="task.archived" mat-flat-button color="accent" (click)="restoreTask(task)">Restore</button>
+
+    <!-- Show Archive and Delete in normal (non-archived) mode -->
+    <ng-container *ngIf="!task.archived">
+      <div>
+        <button mat-flat-button color="primary" (click)="goToTaskDetail(task)">Details</button>
+        <button mat-stroked-button (click)="archiveTask(task)">Archive</button>
+      </div>
+      <button mat-icon-button color="warn" (click)="deleteTask(task)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-container>
+  </mat-card-actions>
+
+</mat-card>

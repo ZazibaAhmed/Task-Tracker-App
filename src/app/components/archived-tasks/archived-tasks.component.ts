@@ -21,10 +21,4 @@ export class ArchivedTasksComponent implements OnInit{
       this.archivedTasks = tasks;
     });
   }
-
-  // When restoring:
-  restoreTask(task: Task) {
-    this.taskService.restoreTask(task.id);
-    // The subscription in ngOnInit will auto-update the list if TaskService emits new values!
-  }
 }
