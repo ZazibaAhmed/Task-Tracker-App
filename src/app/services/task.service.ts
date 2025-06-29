@@ -12,7 +12,9 @@ export class TaskService {
 
   // private tasksSubject = new BehaviorSubject<Task[]>([]); // FIX
   private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
-  private idCounter = 1;
+  private idCounter = this.tasksSubject.value.length
+    ? Math.max(...this.tasksSubject.value.map(t => t.id)) + 1
+    : 1;
   private previousStatusMap = new Map<number, TaskStatus>();
   private sortBySubject = new BehaviorSubject<'priority' | 'date'>('priority');
   private priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
