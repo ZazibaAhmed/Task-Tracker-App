@@ -12,12 +12,11 @@ export class TaskService {
 
   // private tasksSubject = new BehaviorSubject<Task[]>([]); // FIX
   private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
+  private sortBySubject = new BehaviorSubject<'priority' | 'date'>('priority');
+  private priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
   private idCounter = this.tasksSubject.value.length
     ? Math.max(...this.tasksSubject.value.map(t => t.id)) + 1
     : 1;
-  private previousStatusMap = new Map<number, TaskStatus>();
-  private sortBySubject = new BehaviorSubject<'priority' | 'date'>('priority');
-  private priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
 
   // Observable of only non-archived, sorted tasks
   public readonly sortedTasks$: Observable<Task[]> = combineLatest([
@@ -40,6 +39,9 @@ export class TaskService {
     })
   );
 
+  get tasks$(): Observable<Task[]> {
+    return this.tasksSubject.asObservable();
+  }
   get sortBy(): 'priority' | 'date' {
     return this.sortBySubject.value;
   }
@@ -51,10 +53,6 @@ export class TaskService {
     task.id = this.idCounter++;
     task.createdAt = new Date();
     this.tasksSubject.next([...this.tasksSubject.value, task]);
-  }
-
-  get tasks$(): Observable<Task[]> {
-    return this.tasksSubject.asObservable();
   }
 
   updateTask(updated: Task) {
@@ -81,7 +79,6 @@ export class TaskService {
   archiveTask(id: number) {
     const task = this.findById(id);
     if (task && !task.archived) {
-      this.previousStatusMap.set(id, task.status); // store before archive
       this.updateTask({ ...task, archived: true, status: 'Done' });
     }
   }
@@ -89,14 +86,12 @@ export class TaskService {
   // restoreTask: Restore original status
   restoreTask(id: number) {
     const task = this.findById(id);
-    const previousStatus = this.previousStatusMap.get(id);
     if (task && task.archived) {
       this.updateTask({
         ...task,
         archived: false,
-        status: previousStatus && previousStatus !== 'Done' ? previousStatus : 'To Do'
+        status: 'Done'
       });
-      this.previousStatusMap.delete(id); // Clean up
     }
   }
 
