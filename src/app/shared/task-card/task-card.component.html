@@ -24,10 +24,11 @@
         <button mat-flat-button color="primary" (click)="goToTaskDetail(task)">Details</button>
         <button mat-stroked-button (click)="archiveTask(task)">Archive</button>
       </div>
-      <button mat-icon-button color="warn" (click)="deleteTask(task)">
-        <mat-icon>delete</mat-icon>
-      </button>
     </ng-container>
+
+    <button mat-icon-button color="warn" (click)="deleteTask(task)">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-card-actions>
 
 </mat-card>

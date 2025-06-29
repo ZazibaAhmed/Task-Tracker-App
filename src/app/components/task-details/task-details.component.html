@@ -1,29 +1,76 @@
 <ng-container *ngIf="task; else notFound">
-  <mat-card>
-    <mat-card-title>
-      {{ task.title }}
-      <button mat-icon-button color="primary" (click)="openEditDialog()" aria-label="Edit Task">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </mat-card-title>
-    <mat-card-content>
-      <p><strong>Status:</strong> {{ task.status }}</p>
-      <p><strong>Description:</strong> {{ task.description || 'No description.' }}</p>
-      <p><strong>Due Date:</strong> {{ task.dueDate | dueDateFormat }}</p>
-      <p><strong>Category:</strong> {{ task.category }}</p>
-      <p>
-        <strong>Tags:</strong>
-        <span *ngIf="task.tags?.length; else noTags">
-          <mat-chip-set>
-            <mat-chip *ngFor="let tag of task.tags">{{ tag }}</mat-chip>
-          </mat-chip-set>
-        </span>
-        <ng-template #noTags>None</ng-template>
-      </p>
-    </mat-card-content>
-  </mat-card>
+  <div class="task-detail-wrapper">
+    <mat-card class="task-detail-card mat-elevation-z8">
+      <div class="detail-header">
+        <div class="title-and-actions">
+          <mat-card-title class="detail-title">
+            {{ task.title }}
+          </mat-card-title>
+          <div class="header-actions">
+            <button mat-icon-button color="primary" (click)="openEditDialog()" aria-label="Edit Task">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="detail-row">
+          <span class="label">Description:</span>
+          <span class="desc-block">{{ task.description || 'No description.' }}</span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Priority:</span>
+          <span>
+            <mat-icon class="detail-icon" *ngIf="task.priority === 'High'" color="warn">priority_high</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.priority === 'Medium'" color="accent">flag</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.priority === 'Low'" color="primary">low_priority</mat-icon>
+            {{ task.priority }}
+          </span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Status:</span>
+          <span>
+            <mat-icon class="detail-icon" *ngIf="task.status === 'Done'" color="primary">check_circle</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.status === 'In Progress'" color="accent">autorenew</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.status === 'To Do'" color="warn">schedule</mat-icon>
+            {{ task.status }}
+          </span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Due Date:</span>
+          <span>{{ task.dueDate | dueDateFormat }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Category:</span>
+          <span>
+            <mat-icon class="detail-icon" *ngIf="task.category === 'Work'" color="primary">work</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.category === 'Personal'" color="accent">person</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.category === 'Urgent'" color="warn">priority_high</mat-icon>
+            <mat-icon class="detail-icon" *ngIf="task.category === 'Other'">category</mat-icon>
+            {{ task.category }}
+          </span>
+        </div>
+
+        <div class="detail-row">
+          <span class="label">Tags:</span>
+          <ng-container *ngIf="task.tags?.length; else noTags">
+            <mat-chip-set>
+              <mat-chip *ngFor="let tag of task.tags">{{ tag }}</mat-chip>
+            </mat-chip-set>
+          </ng-container>
+          <ng-template #noTags>None</ng-template>
+        </div>
+        <div class="detail-row">
+          <span class="label">Created:</span>
+          <span>{{ task.createdAt| date: 'MMM d, y, h:mm a' }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </ng-container>
 <ng-template #notFound>
-  <p>Task not found.</p>
+  <div class="not-found-msg">Task not found.</div>
 </ng-template>
-

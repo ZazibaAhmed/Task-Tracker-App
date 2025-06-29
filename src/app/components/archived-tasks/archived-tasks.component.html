@@ -1,4 +1,8 @@
 <div class="tasks-container">
+  <div class="header">
+    <h1>Archived Tasks</h1>
+  </div>
+
   <div *ngIf="archivedTasks.length; else noArchived">
     <div class="task-list-grid">
       <app-task-card *ngFor="let task of archivedTasks; let i = index"
