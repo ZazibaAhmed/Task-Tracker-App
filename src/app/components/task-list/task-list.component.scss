@@ -21,3 +21,17 @@
     box-shadow: 0 8px 24px 0 rgba(186,104,200, 0.13), 0 1.5px 8px 0 rgba(0,0,0,0.10);
   }
 }
+.chip-high {
+  background-color: #f44336 !important; /* red */
+  color: #fff !important;
+}
+
+.chip-medium {
+  background-color: #2196f3 !important; /* blue */
+  color: #fff !important;
+}
+
+.chip-low {
+  background-color: #c8e6c9 !important; /* light green */
+  color: #222 !important;
+}

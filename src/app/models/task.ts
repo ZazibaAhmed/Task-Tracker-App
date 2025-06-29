@@ -1,5 +1,6 @@
 export type TaskStatus = 'To Do' | 'In Progress' | 'Done';
 export type TaskCategory = 'Work' | 'Personal' | 'Urgent' | 'Other';
+export type Priority = 'Low' | 'Medium' | 'High';
 
 export interface Task {
   id: number;
@@ -10,5 +11,6 @@ export interface Task {
   category: TaskCategory;
   tags?: string[];
   archived: boolean;
-  // For challenge: priority?: 'Low' | 'Medium' | 'High';
+  createdAt: Date;
+  priority: Priority;
 }

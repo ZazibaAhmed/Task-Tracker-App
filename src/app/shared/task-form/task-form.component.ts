@@ -40,6 +40,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
     // this.formControlDisableHandler();
   }
 
+  // FIX add createdAT
   initializeTaskForm(){
     const t = this.data?.task;
     // Prepare FormArray for tags, either empty or with existing tags (for edit)
@@ -51,7 +52,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       status: [t?.status || 'To Do', Validators.required],
       dueDate: [t?.dueDate || '', dueDateValidator()],
       category: [t?.category || '', Validators.required],
-      tags: this.fb.array(tagControls, tagsArrayValidator)
+      tags: this.fb.array(tagControls, tagsArrayValidator),
+      priority: [t?.priority || 'Medium'], // Default is 'Medium'
     });
   }
 

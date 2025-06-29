@@ -53,4 +53,13 @@ export class TaskListComponent implements OnInit {
   goToTaskDetail(task: Task) {
     this.router.navigate(['/task', task.id]);
   }
+
+  priorityClass(priority: 'High' | 'Medium' | 'Low'): string {
+    switch (priority) {
+      case 'High': return 'chip-high';
+      case 'Medium': return 'chip-medium';
+      case 'Low': return 'chip-low';
+      default: return '';
+    }
+  }
 }

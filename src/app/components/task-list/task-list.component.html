@@ -10,6 +10,9 @@
             tabindex="0">
     <mat-card-title>{{ task.title }}</mat-card-title>
     <mat-card-content>
+      <mat-chip [ngClass]="priorityClass(task.priority)">
+        {{ task.priority }}
+      </mat-chip>
       <div>Status: {{ task.status }}</div>
       <div>Due: {{ task.dueDate | dueDateFormat }}</div>
       <div>Category: {{ task.category }}</div>
