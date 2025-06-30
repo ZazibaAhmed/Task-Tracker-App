@@ -12,7 +12,8 @@ export class TaskService {
 
   // Holds the list of all tasks in-memory.
   private tasksSubject = new BehaviorSubject<Task[]>([]);
-  // For demo/testing, initialize with DUMMY_TASKS instead of empty array.
+
+  // For DEMO/testing, initialize with DUMMY_TASKS instead of empty array.
   // private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
 
   // Controls current sort mode (by priority or date).
