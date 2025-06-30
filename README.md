@@ -65,4 +65,4 @@ A task management app built with Angular and Angular Material
 
 ## Author
 
-- [Zazib Ahmed] 
+- Zaziba Ahmed
