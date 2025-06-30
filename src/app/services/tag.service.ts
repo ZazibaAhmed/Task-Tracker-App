@@ -17,7 +17,7 @@ export class TagService {
     const API_URL = 'https://jsonplaceholder.typicode.com/users';
 
     return this.http.get<any[]>(API_URL).pipe(
-      map(users => users.slice(0, 10).map(u => u.name)),    // <-- map before tap!
+      map(users => users.slice(0, 10).map(u => u.name)),
       tap(names => this.tagCache$.next(names)),
       catchError(_ => {
         this.tagCache$.next(null);

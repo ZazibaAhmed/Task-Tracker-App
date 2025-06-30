@@ -43,7 +43,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   initializeTaskForm(){
     const t = this.data?.task;
-    // Prepare FormArray for tags, either empty or with existing tags (for edit)
     const tagControls = (t?.tags || []).map(tag => this.createTagControl(tag));
 
     this.taskForm = this.fb.group({
@@ -75,7 +74,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   formControlDisableHandler(){
-    // Set initial disabled/enabled state after building the form
     this.disableCompletedFieldsIfNeeded();
 
     // Subscribe to changes of the status field
@@ -86,7 +84,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   disableCompletedFieldsIfNeeded() {
     const isDone = this.isEdit && this.taskForm.get('status')?.value === 'Done';
-    // These form controls (except status) get toggled
+    // Form controls (except status) get toggled
     const controlsToToggle = ['title', 'description', 'dueDate', 'category', 'tags', 'priority'];
 
     controlsToToggle.forEach(field => {
@@ -95,7 +93,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
       if (isDone) {
         control.disable({ emitEvent: false });
-        // For tags FormArray, also disable all child controls (each tag)
         if (this.tagsInput) {
           this.tagsInput.disable({ emitEvent: false })
         }

@@ -16,17 +16,16 @@
   height: 100%;
 }
 
-/* This is the scrollable area */
+
 .form-content-scrollable {
   flex: 1 1 auto;
   overflow-y: auto;
   min-height: 0;
   max-height: 100%;
-  padding: 16px 24px 8px 24px; /* or whatever you want */
+  padding: 16px 24px 8px 24px;
   box-sizing: border-box;
 }
 
-/* Actions fixed at the bottom of form */
 .dialog-actions-fixed {
   position: sticky;
   bottom: 0;
@@ -43,7 +42,7 @@
 }
 
 .full-width {
-  grid-column: 1 / -1; /* Full width in the grid */
+  grid-column: 1 / -1; 
   width: 100%;
 }
 

@@ -15,7 +15,7 @@
 .task-item, mat-card {
   display: flex;
   flex-direction: column;
-  height: 100%;         // ensures the card fills its grid cell
+  height: 100%;
 }
 
 mat-card {
@@ -27,7 +27,7 @@ mat-card {
 }
 mat-card-content {
   margin-top: 20px;
-  flex: 1 1 auto;       // allows content to grow/shrink and fill space
+  flex: 1 1 auto;
   color: gray;
 }
 mat-card-actions {
@@ -36,7 +36,7 @@ mat-card-actions {
 .actions-spaced {
   display: flex;
   justify-content: space-between;
-  align-items: center; // optional, for vertical alignment
+  align-items: center;
 }
 .task-item button {
   margin: 2px!important;
@@ -52,13 +52,13 @@ mat-card-actions {
 }
 
 .chip-high {
-  background-color: #D50032 !important; /* red */
+  background-color: #D50032 !important;
 }
 .chip-medium {
-  background-color: #FDD835 !important; /* yellow */
+  background-color: #FDD835 !important;
 }
 .chip-low {
-  background-color: #AED581 !important; /* light green */
+  background-color: #AED581 !important;
 }
 
 // ========== Chip Alignment Fix (Angular Material MDC) ==========

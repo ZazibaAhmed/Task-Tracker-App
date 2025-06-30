@@ -21,11 +21,11 @@
 .no-archived-tasks {
   display: flex;
   flex-direction: column;
-  justify-content: center;   // vertical center
-  align-items: center;       // horizontal center
-  min-height: 60vh;          // adjust for vertical centering, e.g., 60% of viewport height
-  font-size: 1.15rem;        // a little larger
-  color: #888;               // subtle color
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  font-size: 1.15rem;
+  color: #888;
 }
 
 // ========== Responsive ==========

@@ -26,7 +26,7 @@ export class TaskCardComponent implements OnInit{
 
   restoreTask(task: Task) {
     this.taskService.restoreTask(task.id);
-    // The subscription in ngOnInit will auto-update the list if TaskService emits new values!
+    // ngOnInit subscription will auto-update the list if TaskService emits new values
   }
 
   goToTaskDetail(task: Task) {

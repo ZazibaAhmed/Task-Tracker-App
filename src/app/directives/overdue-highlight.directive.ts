@@ -5,7 +5,6 @@ import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } fro
 })
 
 export class OverdueHighlightDirective implements OnChanges {
-  // @Input() dueDate: string | Date | undefined;
   @Input('appOverdueHighlight') appOverdueHighlight: string | Date | undefined;
 
 

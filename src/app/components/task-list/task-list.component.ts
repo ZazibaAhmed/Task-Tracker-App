@@ -18,13 +18,9 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.taskService.tasks$.subscribe(tasks =>
-    //   this.tasks = tasks.filter(t => !t.archived)
-    // );
     this.taskService.sortedTasks$.subscribe(tasks =>
       this.tasks = tasks
     );
-    console.log(this.tasks);
   }
 
   openAddTaskDialog() {

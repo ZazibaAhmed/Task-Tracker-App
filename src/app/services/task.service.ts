@@ -75,7 +75,6 @@ export class TaskService {
     );
   }
 
-  // archiveTask: Save original status
   archiveTask(id: number) {
     const task = this.findById(id);
     if (task && !task.archived) {
@@ -83,7 +82,7 @@ export class TaskService {
     }
   }
 
-  // restoreTask: Restore original status
+  // Restore Done status
   restoreTask(id: number) {
     const task = this.findById(id);
     if (task && task.archived) {

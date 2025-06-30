@@ -7,7 +7,7 @@ export interface Task {
   title: string;
   description?: string;
   status: TaskStatus;
-  dueDate?: string; // ISO string (or Date, but string is easier for JSON and Angular Material)
+  dueDate?: string; // ISO string
   category: TaskCategory;
   tags?: string[];
   archived: boolean;
