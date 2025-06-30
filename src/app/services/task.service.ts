@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable} from "rxjs";
-import {Task, TaskStatus} from "../models/task"
+import {Task} from "../models/task"
 import {DUMMY_TASKS} from "../shared/dummy-data";
 
 @Injectable({
@@ -10,8 +10,10 @@ export class TaskService {
 
   constructor() {}
 
-  // private tasksSubject = new BehaviorSubject<Task[]>([]); // FIX
-  private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  // Initialize with DUMMY_TASKS for testing/demo
+  // private tasksSubject = new BehaviorSubject<Task[]>(DUMMY_TASKS);
+
   private sortBySubject = new BehaviorSubject<'priority' | 'date'>('priority');
   private priorityOrder = { 'High': 1, 'Medium': 2, 'Low': 3 };
   private idCounter = this.tasksSubject.value.length
