@@ -64,6 +64,12 @@ A task management app built with Angular and Angular Material
 - Completed Task Fields Disabled 
 - Toggle between sorting by priority and sorting by creation date
 
+## Tech Stack / Versions
+
+- **Angular:** ^16.2.0
+- **Angular Material:** ^16.2.14
+- **RxJS:** ~7.8.0
+
 ## Author
 
 - Zaziba Ahmed
