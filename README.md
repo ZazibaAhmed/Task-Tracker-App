@@ -40,7 +40,7 @@ A task management app built with Angular and Angular Material
 - Due date is stored as an ISO string for Material date picker compatibility
 - Tags field accepts all input, but highlights validation errors and prevents form submission until resolved.
 - Completed tasks have disabled fields (except status) in the edit form, using form control logic and ngClass for styling.
-- Demo data is included for quick testing; Have to uncomment line in taskService
+- Demo data is included for quick testing; Have to uncomment line in TaskService. The app’s form prevents creating overdue tasks directly.
 
 ## Validation Summary
 
