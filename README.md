@@ -26,16 +26,17 @@ A task management app built with Angular and Angular Material
 - `/pipes` – Custom pipes (due date, description truncate)
 - `/directives` – Custom directives (overdue highlight, etc.)
 - `/validators` – Custom form validators (dueDateValidator, tagsArrayValidator)
-- `/shared` - Shared components and data:
+- `/shared` - Shared components and dummy data:
   - `dummy-data.ts` – Example tasks for testing/demo
   - `task-card` – Reusable card component for displaying task summary
   - `task-form` – Reusable reactive form for task add/edit
 
 ## Assumptions & Notes
 
-- Only "Done" Tasks can be archived
+- Only 'Done' Tasks can be archived
 - Archived tasks restore to status ‘Done’
 - Overdue Highlight Directive applies to all tasks if due date is in the past (even Done status)
+- Priority: Medium by default, Status: To Do by default
 - Due date is stored as an ISO string for Material date picker compatibility
 - Tags field accepts all input, but highlights validation errors and prevents form submission until resolved.
 - Completed tasks have disabled fields (except status) in the edit form, using form control logic and ngClass for styling.

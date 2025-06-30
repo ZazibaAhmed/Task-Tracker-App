@@ -16,6 +16,7 @@ export class TaskCardComponent implements OnInit{
 
   ngOnInit() {
   }
+
   deleteTask(task: Task) {
     this.taskService.deleteTask(task.id);
   }

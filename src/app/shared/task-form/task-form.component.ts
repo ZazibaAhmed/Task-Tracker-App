@@ -55,7 +55,8 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       priority: [t?.priority || 'Medium'], // Default is 'Medium'
     });
 
-    // Show due date error immediately if overdue on form open
+    // If due date is invalid on form open (e.g. editing an overdue task), mark as touched
+    // so error message is shown immediately.
     const dueDateControl = this.taskForm.get('dueDate');
     if (dueDateControl && dueDateControl.invalid) {
       dueDateControl.markAsTouched();
@@ -75,7 +76,6 @@ export class TaskFormComponent implements OnInit, OnDestroy {
 
   formControlDisableHandler(){
     this.disableCompletedFieldsIfNeeded();
-
     // Subscribe to changes of the status field
     this.statusSub = this.taskForm.get('status')?.valueChanges.subscribe(() => {
       this.disableCompletedFieldsIfNeeded();
@@ -83,6 +83,7 @@ export class TaskFormComponent implements OnInit, OnDestroy {
   }
 
   disableCompletedFieldsIfNeeded() {
+    // If editing and task status is 'Done', disable all fields except status.
     const isDone = this.isEdit && this.taskForm.get('status')?.value === 'Done';
     // Form controls (except status) get toggled
     const controlsToToggle = ['title', 'description', 'dueDate', 'category', 'tags', 'priority'];
