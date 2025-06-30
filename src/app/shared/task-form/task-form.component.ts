@@ -55,6 +55,12 @@ export class TaskFormComponent implements OnInit, OnDestroy {
       tags: this.fb.array(tagControls, tagsArrayValidator),
       priority: [t?.priority || 'Medium'], // Default is 'Medium'
     });
+
+    // Show due date error immediately if overdue on form open
+    const dueDateControl = this.taskForm.get('dueDate');
+    if (dueDateControl && dueDateControl.invalid) {
+      dueDateControl.markAsTouched();
+    }
   }
 
   loadTags(){
