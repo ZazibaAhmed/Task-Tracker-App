@@ -1,27 +1,68 @@
-# TaskTracker
+# Task Tracker App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+A task management app built with Angular and Angular Material
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Add, edit, delete, archive, and restore tasks
+- Tasks have: Title, Description, Status, Due Date, Category, Tags, Priority
+- Sort by priority or creation date (toggle)
+- Archive and restore tasks
+- API integration for tag suggestions (JSONPlaceholder)
+- Responsive, mobile-friendly UI (Angular Material)
+- Custom validation and error messages
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone the repo
+2. Run `npm install`
+3. Run `ng serve` and open [http://localhost:4200](http://localhost:4200)
 
-## Build
+## Folder Structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `/components` – UI components (task-list, task-details, archived-tasks, etc)
+- `/services` – Data and API services (`TaskService`, `TagService`)
+- `/models` – TypeScript interfaces and enums (`Task`)
+- `/pipes` – Custom pipes (due date, description truncate)
+- `/directives` – Custom directives (overdue highlight, etc.)
+- `/validators` – Custom form validators (dueDateValidator, tagsArrayValidator)
+- `/shared` - Shared components and data:
+  - `dummy-data.ts` – Example tasks for testing/demo
+  - `task-card` – Reusable card component for displaying task summary
+  - `task-form` – Reusable reactive form for task add/edit
 
-## Running unit tests
+## Assumptions & Notes
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Only "Done" Tasks can be archived
+- Archived tasks restore to status ‘Done’
+- Overdue Highlight Directive applies to all tasks if due date is in the past (even Done status)
+- Due date is stored as an ISO string for Material date picker compatibility
+- Tags field accepts all input, but highlights validation errors and prevents form submission until resolved.
+- Completed tasks have disabled fields (except status) in the edit form, using form control logic and ngClass for styling.
+- Demo data is included for quick testing; Have to uncomment line in taskService
 
-## Running end-to-end tests
+## Validation Summary
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Title: Required, 3-50 chars
+- Description: Optional, max 200 chars
+- Status: Required
+- Due Date: Optional, must not be in the past
+- Category: Required
+- Tags: Optional, max 5, each 2-20 chars
 
-## Further help
+## How to Use
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Add/edit tasks via the “Add Task” button
+- Switch sorting with the “Sort by” buttons
+- Archive from the main list; restore from the archive screen
+- Delete, Details Page from the main list (TaskCard)
+
+## Extra Features
+
+- Priority field with dynamic sorting
+- Completed Task Fields Disabled 
+- Toggle between sorting by priority and sorting by creation date
+
+## Author
+
+- [Zazib Ahmed] 
